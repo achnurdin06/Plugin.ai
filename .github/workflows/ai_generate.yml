@@ -1,0 +1,40 @@
+name: AI Auto Commit & PR
+
+# Trigger on push to main (or any branch you prefer)
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed for push & PR creation
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # required for git diff
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install openai gitpython requests
+
+      - name: Run AI generation script
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          # Ensure the script exists at scripts/ai_generate_commit.py
+          if [ ! -f ./scripts/ai_generate_commit.py ]; then
+            echo "❌ Script ./scripts/ai_generate_commit.py not found."
+            exit 1
+          fi
+          python ./scripts/ai_generate_commit.py
