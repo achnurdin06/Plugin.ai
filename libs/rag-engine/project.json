@@ -1,0 +1,23 @@
+{
+  "name": "rag-engine",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/rag-engine/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libs/rag-engine",
+        "main": "libs/rag-engine/src/index.ts",
+        "tsConfig": "libs/rag-engine/tsconfig.lib.json",
+        "assets": [
+          "libs/rag-engine/*.md"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

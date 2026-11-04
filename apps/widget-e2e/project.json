@@ -1,0 +1,12 @@
+{
+  "name": "widget-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/widget-e2e/src",
+  "projectType": "application",
+  "tags": [],
+  "implicitDependencies": [
+    "widget"
+  ],
+  "// targets": "to see all targets run: nx show project widget-e2e --web",
+  "targets": {}
+}
